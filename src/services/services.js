@@ -11,3 +11,18 @@ export const login = async (body) => {
     .then(res => res.data)
     .catch(error => error.response.data);
 };
+
+export const categories = async () => {
+  return await axios.get(`${import.meta.env.VITE_API_URL}/products/categories`)
+    .then(res => res.data)
+    .catch(error => error.response.data);
+};
+
+export const createProduct = async (token, body) => {
+  const config = { headers: { Authorization: token } };
+  console.log(config)
+
+  return await axios.post(`${import.meta.env.VITE_API_URL}/products/new`, body, config)
+    .then(res => res.data)
+    .catch(error => error.response.data);
+};
