@@ -32,3 +32,10 @@ export const getProduct = async (id) => {
     .then(res => res.data)
     .catch(error => error.response.data);
 };
+
+export const getProducts = async (id) => {
+  return await axios.get(`${import.meta.env.VITE_API_URL}/products`)
+    .then(res => res.data)
+    .catch(error => error.response.data);
+};
+
