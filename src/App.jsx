@@ -4,6 +4,7 @@ import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import { AuthContextProvider } from "./context/AutContext";
 import NewProductPage from "../src/pages/NewProductPage";
+import ProductPage from "./pages/ProductPage";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Route path="/" element={<HomePage/>} />
           <Route path="/sign-up" element={<SignUpPage/>} />
           <Route path="/sign-in" element={<SignInPage/>} />
+          <Route path="/products/:id" element={<ProductPage/>} />
           <Route path="/products/new" element={<NewProductPage/>} />
         </Routes>
       </BrowserRouter>    

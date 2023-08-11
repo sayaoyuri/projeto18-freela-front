@@ -26,3 +26,9 @@ export const createProduct = async (token, body) => {
     .then(res => res.data)
     .catch(error => error.response.data);
 };
+
+export const getProduct = async (id) => {
+  return await axios.get(`${import.meta.env.VITE_API_URL}/products/${id}`)
+    .then(res => res.data)
+    .catch(error => error.response.data);
+};
