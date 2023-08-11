@@ -18,12 +18,10 @@ const SignInPage = () => {
     const result = await login(body);
     console.log(result);
     
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('authName');
+    localStorage.removeItem('auth');
 
     if(result.token && result.name) {
-      localStorage.setItem('authToken', JSON.stringify(result.token));
-      localStorage.setItem('authName', JSON.stringify(result.name));
+      localStorage.setItem('auth', JSON.stringify({ id: result.id, name: result.name, token: result.token }));
       setGetAuth(getAuth + 1);
       navigate('/');
     } else {

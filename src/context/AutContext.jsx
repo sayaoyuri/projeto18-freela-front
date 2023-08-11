@@ -8,10 +8,9 @@ export function AuthContextProvider ({ children })  {
   console.log(authToken);
   
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('authToken'));
-    const userName = JSON.parse(localStorage.getItem('authName'));
+    const auth = JSON.parse(localStorage.getItem('auth'));
 
-    setAuthToken({ token, userName });
+    setAuthToken({ ...auth });
   }, [getAuth]);
 
   return (
