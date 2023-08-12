@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createUser } from "../services/services";
 import { Link } from "react-router-dom";
-import { Form }  from "../assets/styled-components/AuthForm";
+import { Form, BottomDiv }  from "../assets/styled-components/AuthForm";
 
 const SignUpPage = () => {
   const [name, setName] = useState('');
@@ -23,7 +23,7 @@ const SignUpPage = () => {
 
   return (
     <Form onSubmit={signUp}>
-      <h1>Cadastro</h1>
+      <h1>Crie sua conta</h1>
       <input 
         type="text" 
         placeholder="Nome" 
@@ -65,8 +65,10 @@ const SignUpPage = () => {
         required
         onChange={(e) => setPhone(e.target.value)}
       />
-      <input type="submit" value="Cadastrar-se!" />
-      <p>Já possui uma conta? <Link to={'/sign-in'} >Entrar</Link> </p>
+      <BottomDiv>
+        <input type="submit" value="Cadastrar-se!" />
+        <p>Já possui uma conta? <Link to={'/sign-in'} ><span>Entrar</span></Link> </p>
+      </BottomDiv>
     </Form>
   );
 };
