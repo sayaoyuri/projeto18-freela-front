@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createUser } from "../services/services";
-import { Link } from "react-router-dom";
-import { Form, BottomDiv }  from "../assets/styled-components/AuthForm";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, AuthError, BottomDiv }  from "../assets/styled-components/AuthForm";
 
 const SignUpPage = () => {
   const [name, setName] = useState('');
@@ -9,16 +9,21 @@ const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
+  const [authError, setAuthError] = useState('');
+  const navigate = useNavigate();
 
   const signUp = async (e) => {
     e.preventDefault();
 
     const body = { name, cpf, email, password, phone };
 
-    const result = await createUser(body);
-
-    console.log(result);
-    alert(result);
+    createUser(body).then(res => {
+      if(res.response) {
+        setAuthError(res.response.data);
+      } else {
+        navigate('/sign-in');
+      }
+    });
   };
 
   return (
@@ -65,6 +70,7 @@ const SignUpPage = () => {
         required
         onChange={(e) => setPhone(e.target.value)}
       />
+      <AuthError>{authError}</AuthError>
       <BottomDiv>
         <input type="submit" value="Cadastrar-se!" />
         <p>Já possui uma conta? <Link to={'/sign-in'} ><span>Entrar</span></Link> </p>

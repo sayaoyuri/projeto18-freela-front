@@ -6,8 +6,6 @@ export const Form = styled.form`
   align-items: center;
   gap: 15px;
   width: 60%;
-  /* height: 60vh; */
-  /* border: 1px solid black; */
   margin: 20vh auto;
   border-radius: 5px;
   padding: 0% 15%;
@@ -39,11 +37,14 @@ export const Form = styled.form`
     color: blue;
     text-decoration: underline;
   }
-
 `;
 
 export const BottomDiv = styled.div`
   width: 100%;
   margin-top: 50px;
   text-align: center;
+`;
+
+export const AuthError = styled.p`
+  color: #ac2a2a;
 `;
