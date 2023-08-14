@@ -30,6 +30,11 @@ const NavBar = () => {
         </Ul>
       </Div>
       <Div>
+        <Ul>
+          <Button onClick={() => {authToken.token ? navigate(`/products/new`) : navigate('/sign-in')}}>
+            Desapegue
+          </Button>
+        </Ul>
         <Button onClick={() => {
           authToken.id ? navigate(`/users/${authToken.id}`) : navigate('/sign-in')
         }}>
@@ -73,6 +78,17 @@ const Ul = styled.ul`
   gap: 10px;
   font-size: 22px;
 
+  button {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: 500ms;
+
+    &:hover {
+      opacity: 50%;
+    };
+  };
+
   li {
     cursor: pointer;
   
@@ -84,6 +100,8 @@ const Ul = styled.ul`
 `;
 
 const Button = styled.button`
+background-color: black;
+  font-size: 20px;
   background-color: transparent;
   border: none;
   cursor: pointer;

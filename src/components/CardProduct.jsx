@@ -2,15 +2,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const CardProduct = ({product}) => {
-  const price = String(product.price).slice(0, -2);
-  const cents = String(product.price).slice(-3, -1);
-
   return (
     <Link to={`/products/${product.id}`} key={product.id}>
       <Card>
         <img src={product.imageUrl} alt="" />
         <h1>{product.name}</h1>
-        <h2>{`${price},${cents}`}</h2>
+        <h2>{`${product.price}`}</h2>
       </Card>
     </Link>
   );

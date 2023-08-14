@@ -1,18 +1,30 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getProduct } from "../services/services";
+import { getProduct, setProductStatus } from "../services/services";
 import { FaWhatsapp } from 'react-icons/fa';
 import { AiOutlineMail } from 'react-icons/ai';
+import { AuthContext } from "../context/AutContext";
 
 const ProductPage = () => {
   const [product, setProduct] = useState({});
+  const [reload, setReload] = useState(0);
   console.log(product)
   const { id } = useParams();
+  const { authToken} = useContext(AuthContext);
 
   useEffect(() => {
     getProduct(id).then(res => setProduct(res));
-  }, []);
+  }, [reload]);
+
+  const updateProductStatus = async (e, id, available) => {
+    e.preventDefault();
+
+    const result = await setProductStatus(id, available, authToken.token);
+
+    setReload(reload + 1);
+    alert(result);
+  };
 
   return (
     <Container>
@@ -24,12 +36,18 @@ const ProductPage = () => {
         <h3>{product.description}</h3>
       </ProductDetails>
       <OwnerDetails>
-        <h1>{product.ownerName}</h1>
+        <h1>Vendedor</h1>
+        <h2>{product.ownerName}</h2>
         <div>
           <h2>Contatos</h2>
           <h3><AiOutlineMail/>{` ${product.email}`}</h3>
           <h3><FaWhatsapp/>{` ${product.phone}`}</h3>
         </div>
+        {authToken && authToken.id && authToken.id === product.ownerId &&
+          <div>
+            <button onClick={e => updateProductStatus(e, id, !product.available)}>{product.available ? "Já desapeguei" : "Quero desapegar"}</button>
+          </div>
+        }
       </OwnerDetails>
     </Container>
   );
@@ -71,8 +89,9 @@ const ProductDetails = styled.div`
   };
   
   img {
-    width: 90%;
     height: 60%;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+
   };
 `;
 
@@ -92,6 +111,16 @@ const OwnerDetails = styled.div`
     gap: 15px;
     margin: 20% 0px ;
   };
+
+  button {
+    padding: 15px;
+    background-color: #5858e6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+  }
 
   h1 {
     font-size: 22px;

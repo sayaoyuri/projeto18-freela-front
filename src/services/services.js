@@ -39,3 +39,10 @@ export const getProducts = async (id) => {
     .catch(error => error.response.data);
 };
 
+export const setProductStatus = async (id, available, token) => {
+  const config = { headers: { Authorization: token } };
+
+  return await axios.patch(`${import.meta.env.VITE_API_URL}/products/${id}/status`, { available }, config)
+    .then(res => res.data)
+    .catch(error => error.response.data);
+};
