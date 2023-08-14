@@ -7,7 +7,7 @@ const CardProduct = ({product}) => {
       <Card>
         <img src={product.imageUrl} alt="" />
         <h1>{product.name}</h1>
-        <h2>{`${product.price}`}</h2>
+        <h2>{`${Number(product.price).toFixed(2)}`}</h2>
       </Card>
     </Link>
   );

@@ -12,6 +12,14 @@ export const login = async (body) => {
     .catch(error => error);
 };
 
+export const getUserData = async (id, token) => {
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+
+  return await axios.get(`${import.meta.env.VITE_API_URL}/users/${id}`, config)
+    .then(res => res)
+    .catch(error => error);
+};
+
 export const categories = async () => {
   return await axios.get(`${import.meta.env.VITE_API_URL}/products/categories`)
     .then(res => res.data)

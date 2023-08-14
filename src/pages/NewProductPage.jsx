@@ -3,6 +3,7 @@ import Select from 'react-select';
 import { Form, BottomDiv } from "../assets/styled-components/AuthForm";
 import { categories, createProduct } from "../services/services";
 import { AuthContext } from "../context/AutContext";
+import { useNavigate } from "react-router-dom";
 
 const NewProductPage = () => {
   const [name, setName] = useState('')
@@ -13,10 +14,15 @@ const NewProductPage = () => {
   const [selectOptions, setSelectOption] = useState([]);
 
   const { authToken } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     categories().then(res => setSelectOption(res));
   }, []);
+
+  if(!authToken.token) {
+    navigate('/sign-in')
+  };
 
   const submit = async (e) => {
     e.preventDefault();

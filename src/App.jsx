@@ -6,6 +6,7 @@ import { AuthContextProvider } from "./context/AutContext";
 import NewProductPage from "../src/pages/NewProductPage";
 import ProductPage from "./pages/ProductPage";
 import NavBar from "./components/NavBar";
+import UserPage from "./pages/UserPage";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/" element={<HomePage/>} />
           <Route path="/sign-up" element={<SignUpPage/>} />
           <Route path="/sign-in" element={<SignInPage/>} />
+          <Route path="/users/:id" element={<UserPage/>} />
           <Route path="/products/:id" element={<ProductPage/>} />
           <Route path="/products/new" element={<NewProductPage/>} />
         </Routes>

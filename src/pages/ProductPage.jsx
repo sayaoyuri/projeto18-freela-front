@@ -1,10 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getProduct, setProductStatus } from "../services/services";
 import { FaWhatsapp } from 'react-icons/fa';
 import { AiOutlineMail } from 'react-icons/ai';
 import { AuthContext } from "../context/AutContext";
+
+export const updateProductStatus = async (e, id, available, token) => {
+  e.preventDefault();
+
+  const result = await setProductStatus(id, available, token);
+
+  alert(result);
+};
 
 const ProductPage = () => {
   const [product, setProduct] = useState({});
@@ -12,19 +20,14 @@ const ProductPage = () => {
   console.log(product)
   const { id } = useParams();
   const { authToken} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!authToken) {
+      navigate('/sign-in')
+    }
     getProduct(id).then(res => setProduct(res));
   }, [reload]);
-
-  const updateProductStatus = async (e, id, available) => {
-    e.preventDefault();
-
-    const result = await setProductStatus(id, available, authToken.token);
-
-    setReload(reload + 1);
-    alert(result);
-  };
 
   return (
     <Container>
@@ -45,7 +48,7 @@ const ProductPage = () => {
         </div>
         {authToken && authToken.id && authToken.id === product.ownerId &&
           <div>
-            <button onClick={e => updateProductStatus(e, id, !product.available)}>{product.available ? "Já desapeguei" : "Quero desapegar"}</button>
+            <button onClick={e => { updateProductStatus(e, id, !product.available, authToken.token); setReload(reload + 1)}}>{product.available ? "Já desapeguei" : "Quero desapegar"}</button>
           </div>
         }
       </OwnerDetails>

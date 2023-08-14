@@ -13,7 +13,7 @@ const NavBar = () => {
 
   const logout = () => {
     localStorage.removeItem('auth');
-    setGetAuth(getAuth + 1);
+    setGetAuth(null);
     navigate('/');
   };
 
